@@ -1,6 +1,6 @@
 /**
  * Date of Easter Calculator
- * Course:      Computer Science 221
+ * Course:      Computer Science 211
  * Institution: Okanagan College
  * Author:      Gilbert Fulmore
  * Date:        2015-02-28
