@@ -59,7 +59,7 @@ endIfA:				        !}
 	call   .div
 	mov    4, %o1
 	sub    %o0, %x_r, %o0
-    sub    %o0, 10, %d_r
+	sub    %o0, 10, %d_r
 					!#find the epact
 	mov    11, %o0 			!e = (11 * g + 20 + z - x) % 30;
 	call   .mul
