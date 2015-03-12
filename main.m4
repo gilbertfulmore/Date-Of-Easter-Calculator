@@ -19,12 +19,12 @@ define(n_r, g2)    !find full moon
 main:
 	save   %sp, -96, %sp
 	mov    1951, %y_r		!#enter year
-		     		 		!#find golden number
+		     		 	!#find golden number
 	mov    %y_r, %o0		!g = (y % 19) + 1;
 	call   .rem
 	mov    19, %o1
 	add    %o0, 1, %g_r
-							!#find century
+					!#find century
 	mov    %y_r, %o0		!c = (y / 100) + 1;
 	call   .div
 	mov    100, %o1
@@ -33,15 +33,15 @@ main:
 	mov    %y_r, %o0		!if (y % 100 != 0) {
 	call   .rem
 	mov    100, %o1
-    cmp    %o0, %g0
+ 	cmp    %o0, %g0
 	be     endIfA
 	mov    3, %o0			    !x = (3 * c / 4) - 12;
 	
 	call   .mul
-    mov    %c_r, %o1
-    call   .div
-    mov    4, %o1
-    sub    %o0, 12, %x_r
+    	mov    %c_r, %o1
+    	call   .div
+    	mov    4, %o1
+    	sub    %o0, 12, %x_r
 	
 	mov    8, %o0			    !z = ((8 * c + 5) / 25) - 5;
 	call   .mul
@@ -49,10 +49,10 @@ main:
 	add    %o0, 5, %o0
 	call   .div
 	mov    25, %o1
-    sub    %o0, 5, %z_r
+    	sub    %o0, 5, %z_r
 endIfA:				        !}
 	
-							!#find sunday
+					!#find sunday
 	mov    5, %o0			!d = (5 * y / 4) - x - 10;
 	call   .mul
 	mov    %y_r, %o1
@@ -60,7 +60,7 @@ endIfA:				        !}
 	mov    4, %o1
 	sub    %o0, %x_r, %o0
     sub    %o0, 10, %d_r
-							!#find the epact
+					!#find the epact
 	mov    11, %o0 			!e = (11 * g + 20 + z - x) % 30;
 	call   .mul
 	mov    %g_r, %o1
@@ -70,7 +70,7 @@ endIfA:				        !}
 	call   .rem
 	mov    30, %o1
 	mov    %o0, %e_r
-							!if (e == 25 && g > 11 || e == 24)
+					!if (e == 25 && g > 11 || e == 24)
 	subcc  %e_r, 25, %o0		!o0 = (e == 25)				
 	subcc  %g_r, %l1, %o1		!o1 = (g > l1)
 	andcc  %o0, %o1, %o0		!o0 = (o0 && o1)
@@ -80,7 +80,7 @@ endIfA:				        !}
 	be     endIfB
 	mov    44, %o0			!post endIfB: (find full moon)
 
-	add    %e_r, 1, %e_r   	        !++e;	
+	add    %e_r, 1, %e_r   	        	!++e;	
 				
 endIfB:
 	
@@ -90,25 +90,25 @@ endIfB:
 	bge    endIfC
 	nop
 
-	add    %n_r, 30, %n_r		!n += 30;
+	add    %n_r, 30, %n_r			!n += 30;
 endIfC:
-							!//advance to sunday
-	add    %d_r, %n_r, %o0	!n = n + 7 - ((d + n) % 7);
+					!//advance to sunday
+	add    %d_r, %n_r, %o0		!n = n + 7 - ((d + n) % 7);
 	call   .rem
 	mov    7, %o1
 	add    %n_r, 7, %n_r
 	sub    %n_r, %o0, %n_r
-							!//get month
+					!//get month
 	cmp    %n_r, 31			!if (n > 31) {
 	ble,a  else
 	mov    3, %m_r				!m = 3;
 	
-	mov    4, %m_r			    !m = 4;
-	sub    %n_r, 31, %d_r		!d = n-31;
+	mov    4, %m_r			    	!m = 4;
+	sub    %n_r, 31, %d_r			!d = n-31;
 	ba     endIfD
 	mov    1, %g1
-else:						!} else {
-	mov    %n_r, %d_r            !d = n;
+else:					!} else {
+	mov    %n_r, %d_r            		!d = n;
 	mov    1, %g1			 
-endIfD:						!}
+endIfD:					!}
 	ta     0
