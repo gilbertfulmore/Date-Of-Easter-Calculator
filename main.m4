@@ -4,6 +4,7 @@
  * Institution: Okanagan College
  * Author:      Gilbert Fulmore
  * Date:        2015-03-02
+ * Platform:	Solaris Sparc
  */
 define(c_r, l0)    !century
 define(y_r, l1)    !year
